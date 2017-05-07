@@ -1,0 +1,217 @@
+﻿<UserControl x:Class="UserDataWizard.Views.UserDataWizardView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:view="clr-namespace:UserDataWizard.Views"
+             xmlns:viewModel="clr-namespace:UserDataWizard.ViewModels"
+             mc:Ignorable="d" >
+
+    <UserControl.Resources>
+        <!-- BINDING -->
+        <DataTemplate DataType="{x:Type viewModel:FirstNameViewModel}">
+            <view:FirstNameView />
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewModel:SecondNameViewModel}">
+            <view:SecondNameView />
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewModel:AddressViewModel}">
+            <view:AddressView />
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewModel:PhoneNumberViewModel}">
+            <view:PhoneNumberView />
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewModel:SummaryViewModel}">
+            <view:SummaryView />
+        </DataTemplate>
+
+        <!-- BUTTONS STYLE -->
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Margin" Value="3.5" />
+            <Setter Property="MinWidth" Value="90" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+        </Style>
+
+
+        <!-- DO ZMIANY!!!!-->
+
+        <!-- HEADERED CONTENT CONTROL STYLE -->
+        <Style TargetType="{x:Type HeaderedContentControl}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type HeaderedContentControl}">
+                        <StackPanel Margin="2,0">
+                            <Grid Margin="1,1,1,12" RenderTransformOrigin="0.5,0.5">
+                                <Rectangle
+                                    Fill="BurlyWood"
+                                    Height="3"
+                                    Margin="10,0"
+                                    Opacity="0.6"
+                                    RadiusX="8"
+                                    RadiusY="8"
+                                    VerticalAlignment="Bottom" 
+                                />
+                                <ContentPresenter
+                                    ContentSource="Header"
+                                    TextBlock.FontSize="22"
+                                    TextBlock.FontWeight="DemiBold"
+                                    TextBlock.Foreground="Brown"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center" 
+                                />
+                                <Grid.Effect>
+                                    <DropShadowEffect Opacity="0.1" />
+                                </Grid.Effect>
+                                <Grid.RenderTransform>
+                                    <RotateTransform Angle="-3" />
+                                </Grid.RenderTransform>
+                            </Grid>
+                            <Grid>
+                                <Rectangle Fill="{TemplateBinding Background}" />
+                                <ContentPresenter ContentSource="Content" />
+                            </Grid>
+                        </StackPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- WIZARD STEP TEMPLATE -->
+        <DataTemplate x:Key="wizardStepTemplate">
+            <Border
+                x:Name="bdOuter"
+                BorderBrush="Black"
+                BorderThickness="0,0,1,1"
+                CornerRadius="12"
+                Margin="1,1,1,12"
+                Opacity="0.25"
+                SnapsToDevicePixels="True"
+            >
+                <Border
+                    x:Name="bdInner"
+                    Background="#FFFEFEFE"
+                    BorderBrush="Brown"
+                    BorderThickness="2,2,1,1"
+                    CornerRadius="12"
+                    Padding="2"                  
+                >
+                    <TextBlock
+                        x:Name="txt"
+                        Margin="4,0,0,0"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Text="{Binding Path=PageTitle}" 
+                    />
+                </Border>
+            </Border>
+
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding Path=IsCurrentPage}" Value="True">
+                    <Setter
+                        TargetName="txt"
+                        Property="FontWeight"
+                        Value="Bold"
+                    />
+                    <Setter
+                        TargetName="bdInner"
+                        Property="Background"
+                        Value="BurlyWood" 
+                    />
+                    <Setter
+                        TargetName="bdOuter"
+                        Property="Opacity"
+                        Value="1" 
+                    />
+                </DataTrigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
+
+        <!-- DO ZMIANY!!!!-->
+
+
+
+    </UserControl.Resources>
+
+    <Grid Background="#11000000" Margin="1">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="30" />
+        </Grid.RowDefinitions>
+
+        <!-- WIZARD STEPS -->
+        <HeaderedContentControl Header="Steps">
+            <ItemsControl
+                ItemsSource="{Binding Path=Steps}" 
+                ItemTemplate="{StaticResource wizardStepTemplate}" 
+            />
+        </HeaderedContentControl>
+
+        <!-- CURRENT PAGE -->
+        <Border
+            Background="White" 
+            Grid.Column="1" 
+            Grid.Row="0">
+            <HeaderedContentControl 
+                Content="{Binding Path=CurrentStep}" 
+                Header="{Binding Path=CurrentStep.PageTitle}" 
+            />
+        </Border>
+
+
+        <!-- BUTTONS PANEL -->
+        <Border
+            Grid.Column="0"
+            Grid.ColumnSpan="2" 
+            Grid.Row="1"
+            Background="LightGray" >
+
+            <Grid>
+                <!-- NAVIGATION BUTTONS -->
+                <Grid
+                    Grid.IsSharedSizeScope="True"
+                    HorizontalAlignment="Right"         
+                >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto" />
+                    </Grid.ColumnDefinitions>
+                    <Button
+                        Grid.Column="0"
+                        Grid.Row="0"
+                        Content="Previous"
+                        Command="{Binding MovePrevoiusCommand}"
+                    />
+                    <Button
+                        Grid.Column="1"
+                        Grid.Row="0"
+                        Content="Next"
+                        Command="{Binding MoveNextCommand}"
+                    />
+                    <Button
+                        Grid.Column="2"
+                        Grid.Row="0"
+                        Content="Finish"
+                        Command="{Binding FinishCommand}"
+                    />
+                    <Button
+                        Grid.Column="3"
+                        Grid.Row="0"
+                        Content="Cancel"
+                        Command="{Binding Cancel}"
+                        />
+                </Grid>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

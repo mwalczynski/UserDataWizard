@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="UserDataWizard.Views.PhoneNumberView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d" >
+
+    <Grid
+        VerticalAlignment="Center"
+        HorizontalAlignment="Center"
+    >
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="100" />
+        </Grid.ColumnDefinitions>
+
+        <Label 
+            Grid.Column="0" 
+            Content="PhoneNumber:" 
+        />
+
+        <TextBox 
+            Grid.Column="1" 
+            VerticalAlignment="Center"
+            Text="{Binding PhoneNumber, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" 
+        />
+
+    </Grid>
+</UserControl>
