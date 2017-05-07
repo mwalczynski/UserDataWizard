@@ -7,11 +7,17 @@ using UserDataWizard.Models;
 
 namespace UserDataWizard.ViewModels
 {
-    class SummaryViewModel : AbstractWizardViewModel
+    public class SummaryViewModel : BaseViewModel
     {
-        public override int Id => 5;
+        public override int Id
+        {
+            get { return 5; }
+        }
 
-        public override string PageTitle => "Summary";
+        public override string PageTitle
+        {
+            get { return "Podsumowanie"; }
+        }
 
         private UserDataModel userData;
 
@@ -25,6 +31,11 @@ namespace UserDataWizard.ViewModels
                 }
                 return userData;
             }
+        }
+
+        public override bool IsTextBoxFilledCorrectly()
+        {
+            return true;
         }
     }
 }

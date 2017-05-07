@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Windows;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.CommandWpf;
 using UserDataWizard.Annotations;
@@ -10,10 +11,12 @@ using Prism.Commands;
 
 namespace UserDataWizard.ViewModels
 {
-    class WizardViewModel : INotifyPropertyChanged
+    public class WizardViewModel : INotifyPropertyChanged
     {
-        private ReadOnlyCollection<AbstractWizardViewModel> steps;
-        private AbstractWizardViewModel currentStep;
+        private readonly int SummaryId;
+
+        private ReadOnlyCollection<BaseViewModel> steps;
+        private BaseViewModel currentStep;
 
         public ICommand MovePrevoiusCommand { get; }
         public ICommand MoveNextCommand { get; }
@@ -29,6 +32,8 @@ namespace UserDataWizard.ViewModels
             MovePrevoiusCommand = new RelayCommand(MovePrevoius, CanMovePrevoius);
             MoveNextCommand = new RelayCommand(MoveNext, CanMoveNext);
             FinishCommand = new RelayCommand(Finish, CanFinish);
+
+            SummaryId = Steps.Max(s => s.Id);
         }
 
         private void MovePrevoius()
@@ -41,7 +46,7 @@ namespace UserDataWizard.ViewModels
 
         private bool CanMovePrevoius()
         {
-            return !IsFirstStep() && !IsSummary();
+            return !(IsFirstStep() || IsSummary());
         }
 
         private void MoveNext()
@@ -54,20 +59,28 @@ namespace UserDataWizard.ViewModels
 
         private bool CanMoveNext()
         {
-            return !IsLastStep() && !IsSummary();
+            return !(IsLastStep() || IsSummary() || !IsValid());
         }
 
         private void Finish()
         {
-            CurrentStep = Steps.First(s => s.Id == 5);
+            CurrentStep = Steps.First(s => s.Id == SummaryId);
         }
 
         private bool CanFinish()
         {
-            return true && !IsSummary();
+            for (int i = 1; i < SummaryId; i++)
+            {
+                var step = steps.First(s => i == s.Id);
+                if (!step.IsTextBoxFilledCorrectly())
+                {
+                    return false;
+                }
+            }
+            return !IsSummary();
         }
 
-        public ReadOnlyCollection<AbstractWizardViewModel> Steps
+        public ReadOnlyCollection<BaseViewModel> Steps
         {
             get
             {
@@ -80,17 +93,17 @@ namespace UserDataWizard.ViewModels
 
         private void LoadSteps()
         {
-            var stepsList = new List<AbstractWizardViewModel>();
+            var stepsList = new List<BaseViewModel>();
             stepsList.Add(new FirstNameViewModel());
             stepsList.Add(new SecondNameViewModel());
             stepsList.Add(new AddressViewModel());
             stepsList.Add(new PhoneNumberViewModel());
             stepsList.Add(new SummaryViewModel());
 
-            steps = new ReadOnlyCollection<AbstractWizardViewModel>(stepsList);
+            steps = new ReadOnlyCollection<BaseViewModel>(stepsList);
         }
 
-        public AbstractWizardViewModel CurrentStep
+        public BaseViewModel CurrentStep
         {
             get => currentStep;
             private set
@@ -123,6 +136,11 @@ namespace UserDataWizard.ViewModels
         private bool IsSummary()
         {
             return CurrentStep.Id == 5;
+        }
+
+        private bool IsValid()
+        {
+            return currentStep.IsTextBoxFilledCorrectly();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

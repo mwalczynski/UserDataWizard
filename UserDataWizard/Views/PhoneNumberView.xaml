@@ -17,14 +17,14 @@
 
         <Label 
             Grid.Column="0" 
-            Content="PhoneNumber:" 
+            VerticalAlignment="Center"
+            Content="Numer telefonu:" 
         />
 
         <TextBox 
             Grid.Column="1" 
             VerticalAlignment="Center"
-            Text="{Binding PhoneNumber, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" 
+            Text="{Binding PhoneNumber, ValidatesOnDataErrors=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}" 
         />
-
     </Grid>
 </UserControl>

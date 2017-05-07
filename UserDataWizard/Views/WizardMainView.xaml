@@ -1,14 +1,19 @@
-﻿<UserControl x:Class="UserDataWizard.Views.UserDataWizardView"
+﻿<UserControl x:Class="UserDataWizard.Views.WizardMainView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:view="clr-namespace:UserDataWizard.Views"
              xmlns:viewModel="clr-namespace:UserDataWizard.ViewModels"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" >
+
+    <UserControl.DataContext>
+        <viewModel:WizardViewModel></viewModel:WizardViewModel>
+    </UserControl.DataContext>
 
     <UserControl.Resources>
         <!-- BINDING -->
+
         <DataTemplate DataType="{x:Type viewModel:FirstNameViewModel}">
             <view:FirstNameView />
         </DataTemplate>
@@ -37,7 +42,12 @@
             <Setter Property="VerticalContentAlignment" Value="Center" />
         </Style>
 
-
+        
+        
+        
+        
+        
+        
         <!-- DO ZMIANY!!!!-->
 
         <!-- HEADERED CONTENT CONTROL STYLE -->
@@ -136,6 +146,9 @@
 
 
     </UserControl.Resources>
+
+
+
 
     <Grid Background="#11000000" Margin="1">
         <Grid.ColumnDefinitions>

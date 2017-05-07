@@ -77,10 +77,10 @@
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Repositories\UserDataRepository.cs" />
     <Compile Include="Services\UserDataService.cs" />
-    <Compile Include="ViewModels\AbstractWizardViewModel.cs" />
+    <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\AddressViewModel.cs" />
     <Compile Include="ViewModels\FirstNameViewModel.cs" />
-    <Compile Include="Services\PhoneNumberViewModel.cs" />
+    <Compile Include="ViewModels\PhoneNumberViewModel.cs" />
     <Compile Include="ViewModels\SecondNameViewModel.cs" />
     <Compile Include="ViewModels\SummaryViewModel.cs" />
     <Compile Include="ViewModels\WizardViewModel.cs" />
@@ -99,8 +99,8 @@
     <Compile Include="Views\SummaryView.xaml.cs">
       <DependentUpon>SummaryView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserDataWizardView.xaml.cs">
-      <DependentUpon>UserDataWizardView.xaml</DependentUpon>
+    <Compile Include="Views\WizardMainView.xaml.cs">
+      <DependentUpon>WizardMainView.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -134,7 +134,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\UserDataWizardView.xaml">
+    <Page Include="Views\WizardMainView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

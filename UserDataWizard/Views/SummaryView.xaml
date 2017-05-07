@@ -27,7 +27,7 @@
             Grid.Column="0" 
             Grid.Row ="0"
             HorizontalAlignment="Right"
-            Content="First name:" 
+            Content="Imię:" 
         />
         <TextBox 
             Grid.Column="1" 
@@ -41,7 +41,7 @@
             Grid.Column="0" 
             Grid.Row ="1"
             HorizontalAlignment="Right"
-            Content="Second name:" 
+            Content="Nazwisko:" 
         />
         <TextBox 
             Grid.Column="1" 
@@ -55,7 +55,7 @@
             Grid.Column="0" 
             Grid.Row ="2"
             HorizontalAlignment="Right"
-            Content="Address:" 
+            Content="Adres:" 
         />
         <TextBox 
             Grid.Column="1" 
@@ -69,7 +69,7 @@
             Grid.Column="0" 
             Grid.Row ="3"
             HorizontalAlignment="Right"
-            Content="Phone number:" 
+            Content="Numer telefonu:" 
         />
         <TextBox 
             Grid.Column="1" 

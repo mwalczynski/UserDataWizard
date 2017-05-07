@@ -6,38 +6,36 @@ using System.Threading.Tasks;
 
 namespace UserDataWizard.ViewModels
 {
-    public class AddressViewModel : BaseViewModel
+    public class PhoneNumberViewModel : BaseViewModel
     {
         public override int Id
         {
-            get { return 3; }
+            get { return 4; }
         }
 
         public override string PageTitle
         {
-            get { return "Adres"; }
+            get { return "Numer telefonu"; }
         }
 
-        private string address;
+        private string phoneNumber;
 
-        public string Address
+        public string PhoneNumber
         {
-            get
-            {
-                return address;
-            }
+            get { return phoneNumber; }
             set
             {
-                address = value;
-                OnPropertyChanged(nameof(Address));
-                UserDataService.ChangeAddress(address);
+                phoneNumber = value;
+                OnPropertyChanged(nameof(PhoneNumber));
+                UserDataService.ChangePhoneNumber(phoneNumber);
             }
         }
+
         public override bool IsTextBoxFilledCorrectly()
         {
-            if (string.IsNullOrEmpty(address))
+            if (string.IsNullOrEmpty(phoneNumber))
             {
-                Error = "Adres jest wymagany!";
+                Error = "Numer telefonu jest wymagany!";
                 return false;
             }
 

@@ -9,23 +9,39 @@ using UserDataWizard.Annotations;
 
 namespace UserDataWizard.ViewModels
 {
-    public class SecondNameViewModel : AbstractWizardViewModel
+    public class SecondNameViewModel : BaseViewModel
     {
-        public override int Id => 2;
+        public override int Id
+        {
+            get { return 2; }
+        }
 
-        public override string PageTitle => "Second Name";
+        public override string PageTitle
+        {
+            get { return "Nazwisko"; }
+        }
 
         private string secondName;
 
         public string SecondName
         {
-            get => secondName;
+            get { return secondName; }
             set
             {
                 secondName = value;
                 OnPropertyChanged(nameof(SecondName));
                 UserDataService.ChangeSecondName(secondName);
             }
+        }
+        public override bool IsTextBoxFilledCorrectly()
+        {
+            if (string.IsNullOrEmpty(secondName))
+            {
+                Error = "Nazwisko jest wymagane!";
+                return false;
+            }
+
+            return true;
         }
     }
 }

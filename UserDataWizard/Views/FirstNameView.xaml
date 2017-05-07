@@ -9,22 +9,47 @@
         VerticalAlignment="Center"
         HorizontalAlignment="Center"
         >
-        
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="100" />
         </Grid.ColumnDefinitions>
 
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
         <Label 
               Grid.Column="0" 
-              Content="First name:" 
+              Grid.Row="0"
+              VerticalAlignment="Center"
+              Content="Imię:" 
          />
-
         <TextBox 
             Grid.Column="1" 
+            Grid.Row="0"
+            x:Name="FirstNameTextBox"
             VerticalAlignment="Center"
-            Text="{Binding FirstName, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" 
+            Text="{Binding FirstName, Mode=TwoWay, ValidatesOnDataErrors=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}" 
          />
-
+        <ContentPresenter 
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            Grid.Row="1"
+            Content="{Binding ElementName=FirstNameTextBox, Path=(Validation.Errors).CurrentItem}"
+        >
+            <ContentPresenter.ContentTemplate>
+                <DataTemplate>
+                    <TextBlock
+                        Foreground="DarkRed"
+                        FontStyle="Italic"
+                        FontSize="11"
+                        HorizontalAlignment="Right"
+                        Text="{Binding Path=ErrorContent}"
+                    />
+                </DataTemplate>
+            </ContentPresenter.ContentTemplate>
+        </ContentPresenter>
     </Grid>
 </UserControl>

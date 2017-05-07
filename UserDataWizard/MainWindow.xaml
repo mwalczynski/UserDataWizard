@@ -9,6 +9,6 @@
         Height="400" 
         Width="650">
 
-    <views:UserDataWizardView/>
+    <views:WizardMainView/>
 
 </Window>
