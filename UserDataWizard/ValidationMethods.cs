@@ -23,7 +23,7 @@ namespace UserDataWizard
 
         public static bool ContainsSpecialCharacters(string property)
         {
-            var regex = new Regex("[^A-Za-z0-9ĄĆĘŁŃÓŚŹąćęłńóśź]");
+            var regex = new Regex("[^A-Za-z0-9ĄĆĘŁŃÓŚŹŻąćęłńóśźż]");
             return regex.IsMatch(property);
         }
 
