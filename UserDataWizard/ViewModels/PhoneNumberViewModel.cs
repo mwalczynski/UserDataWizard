@@ -38,6 +38,7 @@ namespace UserDataWizard.ViewModels
         public override string Validate()
         {
             var validationMessage = "";
+
             if (string.IsNullOrEmpty(phoneNumber))
             {
                 validationMessage = "Numer telefonu jest wymagany!";

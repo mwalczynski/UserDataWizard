@@ -14,9 +14,9 @@ namespace UserDataWizard.ViewModels
 {
     public class WizardViewModel : INotifyPropertyChanged
     {
-        private UserDataService UserDataService = new UserDataService();
+        private readonly UserDataService userDataService = new UserDataService();
 
-        private readonly int SummaryId;
+        private readonly int summaryId;
 
         private ReadOnlyCollection<BaseViewModel> steps;
         private BaseViewModel currentStep;
@@ -34,7 +34,7 @@ namespace UserDataWizard.ViewModels
             FinishCommand = new RelayCommand(Finish, CanFinish);
             ChangeDataCommand = new RelayCommand(ChangeData, CanChangeData);
 
-            SummaryId = Steps.Max(s => s.Id);
+            summaryId = Steps.Max(s => s.Id);
         }
 
         private void MovePrevoius()
@@ -65,12 +65,12 @@ namespace UserDataWizard.ViewModels
 
         private void Finish()
         {
-            CurrentStep = Steps.First(s => s.Id == SummaryId);
+            CurrentStep = Steps.First(s => s.Id == summaryId);
         }
 
         private bool CanFinish()
         {
-            for (int i = 1; i < SummaryId; i++)
+            for (int i = 1; i < summaryId; i++)
             {
                 var step = steps.First(s => i == s.Id);
                 if (!step.IsValid())
@@ -83,7 +83,7 @@ namespace UserDataWizard.ViewModels
 
         private void ChangeData()
         {
-            UserDataService.LoadNewData();
+            userDataService.LoadNewData();
             CurrentStep = Steps.First(s => s.Id == 1);
         }
 
@@ -147,7 +147,7 @@ namespace UserDataWizard.ViewModels
 
         private bool IsSummary()
         {
-            return CurrentStep.Id == SummaryId;
+            return CurrentStep.Id == summaryId;
         }
 
         private bool IsStepValid()

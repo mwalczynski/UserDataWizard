@@ -36,7 +36,8 @@ namespace UserDataWizard.ViewModels
         }
         public override string Validate()
         {
-            string validationMessage = "";
+            var validationMessage = "";
+
             if (string.IsNullOrEmpty(address))
             {
                 validationMessage = "Adres jest wymagany!";
