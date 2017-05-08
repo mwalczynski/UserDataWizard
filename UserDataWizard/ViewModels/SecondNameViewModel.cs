@@ -33,15 +33,15 @@ namespace UserDataWizard.ViewModels
                 UserDataService.ChangeSecondName(secondName);
             }
         }
-        public override bool IsTextBoxFilledCorrectly()
+        public override string Validate()
         {
+            string validationMessage = "";
             if (string.IsNullOrEmpty(secondName))
             {
-                Error = "Nazwisko jest wymagane!";
-                return false;
+                validationMessage = "Nazwisko jest wymagane!";
             }
 
-            return true;
+            return validationMessage;
         }
     }
 }

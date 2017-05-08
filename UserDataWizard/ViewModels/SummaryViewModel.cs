@@ -33,9 +33,9 @@ namespace UserDataWizard.ViewModels
             }
         }
 
-        public override bool IsTextBoxFilledCorrectly()
+        public override string Validate()
         {
-            return true;
+            return "";
         }
     }
 }

@@ -32,16 +32,32 @@ namespace UserDataWizard.ViewModels
             }
         }
 
-        public override bool IsTextBoxFilledCorrectly()
+        public override string Validate()
         {
-            Error = "";
+            var validationMessage = "";
+
             if (string.IsNullOrEmpty(firstName))
             {
-                Error = "Imię jest wymagane!";
-                return false;
+                validationMessage = "Imię jest wymagane!\n";
+            }
+            else if (!ValidationMethods.StartWithCapitalLetters(firstName))
+            {
+                validationMessage = "Imię musi zaczynać się od wielkiej litery!\n";
+            }
+            else if (ValidationMethods.ContainsNumber(firstName))
+            {
+                validationMessage = "Imię nie może zawierać cyfr!\n";
+            }
+            else if (ValidationMethods.ContainsSpecialCharacters(firstName))
+            {
+                validationMessage = "Imię nie może zawierać znaków specjalnych!\n";
+            }
+            else if (firstName.Length < 3 || firstName.Length > 20)
+            {
+                validationMessage = "Imię musi zawierać od 3 do 20 znaków!\n";
             }
 
-            return true;
+            return validationMessage;
         }
     }
 }

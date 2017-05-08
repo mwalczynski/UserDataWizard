@@ -11,7 +11,6 @@ namespace UserDataWizard.ViewModels
         public abstract int Id { get; }
         public abstract string PageTitle { get; }
 
-        private string error;
         private bool isCurrentPage;
 
         protected UserDataService UserDataService = new UserDataService();
@@ -19,7 +18,6 @@ namespace UserDataWizard.ViewModels
         public string Error
         {
             get { throw new NotImplementedException(); }
-            set { error = value; }
         }
 
         public bool IsCurrentPage
@@ -37,8 +35,6 @@ namespace UserDataWizard.ViewModels
             }
         }
 
-        public abstract bool IsTextBoxFilledCorrectly();
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]
@@ -49,33 +45,13 @@ namespace UserDataWizard.ViewModels
 
         public string this[string columnName]
         {
-            get { return Validate(columnName); }
+            get { return Validate(); }
         }
+        public abstract string Validate();
 
-        private string Validate(string propertyName)
+        public bool IsValid()
         {
-            string validationMessage = string.Empty;
-            switch (propertyName)
-            {
-                case "FirstName":
-                    // TODO: Check validiation condition
-                    validationMessage = "Imię";
-                    break;
-                case "SecondName":
-                    // TODO: Check validiation condition
-                    validationMessage = "Nazwisko";
-                    break;
-                case "Address":
-                    // TODO: Check validiation condition
-                    validationMessage = "Adres";
-                    break;
-                case "PhoneNumber":
-                    // TODO: Check validiation condition
-                    validationMessage = "Numer telefonu";
-                    break;
-            }
-
-            return validationMessage;
+            return Validate() == "";
         }
     }
 }

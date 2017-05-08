@@ -31,15 +31,15 @@ namespace UserDataWizard.ViewModels
             }
         }
 
-        public override bool IsTextBoxFilledCorrectly()
+        public override string Validate()
         {
+            var validationMessage = "";
             if (string.IsNullOrEmpty(phoneNumber))
             {
-                Error = "Numer telefonu jest wymagany!";
-                return false;
+                validationMessage = "Numer telefonu jest wymagany!";
             }
 
-            return true;
+            return validationMessage;
         }
     }
 }

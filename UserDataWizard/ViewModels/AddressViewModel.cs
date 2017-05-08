@@ -33,15 +33,15 @@ namespace UserDataWizard.ViewModels
                 UserDataService.ChangeAddress(address);
             }
         }
-        public override bool IsTextBoxFilledCorrectly()
+        public override string Validate()
         {
+            string validationMessage = "";
             if (string.IsNullOrEmpty(address))
             {
-                Error = "Adres jest wymagany!";
-                return false;
+                validationMessage = "Adres jest wymagany!";
             }
 
-            return true;
+            return validationMessage;
         }
     }
 }

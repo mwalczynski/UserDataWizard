@@ -59,7 +59,7 @@ namespace UserDataWizard.ViewModels
 
         private bool CanMoveNext()
         {
-            return !(IsLastStep() || IsSummary() || !IsValid());
+            return !(IsLastStep() || IsSummary() || !IsStepValid());
         }
 
         private void Finish()
@@ -72,7 +72,7 @@ namespace UserDataWizard.ViewModels
             for (int i = 1; i < SummaryId; i++)
             {
                 var step = steps.First(s => i == s.Id);
-                if (!step.IsTextBoxFilledCorrectly())
+                if (!step.IsValid())
                 {
                     return false;
                 }
@@ -119,7 +119,7 @@ namespace UserDataWizard.ViewModels
                 if (currentStep != null)
                     currentStep.IsCurrentPage = true;
 
-                this.OnPropertyChanged(nameof(CurrentStep));
+                OnPropertyChanged(nameof(CurrentStep));
             }
         }
 
@@ -135,12 +135,12 @@ namespace UserDataWizard.ViewModels
 
         private bool IsSummary()
         {
-            return CurrentStep.Id == 5;
+            return CurrentStep.Id == SummaryId;
         }
 
-        private bool IsValid()
+        private bool IsStepValid()
         {
-            return currentStep.IsTextBoxFilledCorrectly();
+            return currentStep.IsValid();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
