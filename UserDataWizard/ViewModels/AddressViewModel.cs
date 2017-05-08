@@ -24,6 +24,7 @@ namespace UserDataWizard.ViewModels
         {
             get
             {
+                address = UserDataService.GetAddress();
                 return address;
             }
             set
@@ -39,6 +40,10 @@ namespace UserDataWizard.ViewModels
             if (string.IsNullOrEmpty(address))
             {
                 validationMessage = "Adres jest wymagany!";
+            }
+            else if (address.Length < 3)
+            {
+                validationMessage = "Adres jest za krótki!";
             }
 
             return validationMessage;

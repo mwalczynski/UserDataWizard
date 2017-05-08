@@ -25,7 +25,11 @@ namespace UserDataWizard.ViewModels
 
         public string SecondName
         {
-            get { return secondName; }
+            get
+            {
+                secondName = UserDataService.GetSecondName();
+                return secondName;
+            }
             set
             {
                 secondName = value;
@@ -35,10 +39,27 @@ namespace UserDataWizard.ViewModels
         }
         public override string Validate()
         {
-            string validationMessage = "";
+            var validationMessage = "";
+
             if (string.IsNullOrEmpty(secondName))
             {
-                validationMessage = "Nazwisko jest wymagane!";
+                validationMessage = "Nazwisko jest wymagane!\n";
+            }
+            else if (!ValidationMethods.StartWithCapitalLetters(secondName))
+            {
+                validationMessage = "Nazwisko musi zaczynać się od wielkiej litery!\n";
+            }
+            else if (ValidationMethods.ContainsNumber(secondName))
+            {
+                validationMessage = "Nazwisko nie może zawierać cyfr!\n";
+            }
+            else if (ValidationMethods.ContainsSpecialCharacters(secondName))
+            {
+                validationMessage = "Nazwisko nie może zawierać znaków specjalnych!\n";
+            }
+            else if (secondName.Length > 20)
+            {
+                validationMessage = "Nazwisko musi zawierać maksymalnie 20 znaków!\n";
             }
 
             return validationMessage;

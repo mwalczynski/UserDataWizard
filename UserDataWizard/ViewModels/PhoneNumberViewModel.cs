@@ -22,7 +22,11 @@ namespace UserDataWizard.ViewModels
 
         public string PhoneNumber
         {
-            get { return phoneNumber; }
+            get
+            {
+                phoneNumber = UserDataService.GetPhoneNumber();
+                return phoneNumber;
+            }
             set
             {
                 phoneNumber = value;
@@ -37,6 +41,14 @@ namespace UserDataWizard.ViewModels
             if (string.IsNullOrEmpty(phoneNumber))
             {
                 validationMessage = "Numer telefonu jest wymagany!";
+            }
+            else if (!ValidationMethods.IsNumber(phoneNumber))
+            {
+                validationMessage = "Numer telefonu może zawierać jedynie cyfry!";
+            }
+            else if (phoneNumber.Length != 7 && phoneNumber.Length != 9)
+            {
+                validationMessage = "Numer telefonu musi składać się z 7 lub 9 cyfr!";
             }
 
             return validationMessage;

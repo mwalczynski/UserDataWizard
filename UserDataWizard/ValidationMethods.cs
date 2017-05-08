@@ -35,7 +35,7 @@ namespace UserDataWizard
 
         public static bool StartWithCapitalLetters(string property)
         {
-            var regex = new Regex(@"^([A-Z])");
+            var regex = new Regex(@"^([A-ZĄĆĘŁŃÓŚŹ])");
             return regex.IsMatch(property);
         }
     }

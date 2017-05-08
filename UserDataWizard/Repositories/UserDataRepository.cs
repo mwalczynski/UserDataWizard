@@ -16,6 +16,25 @@ namespace UserDataWizard.Repository
             UserData = new UserDataModel();
         }
 
+        public string GetFirstName()
+        {
+            return UserData.FirstName;
+        }
+
+        public string GetSecondName()
+        {
+            return UserData.SecondName;
+        }
+        public string GetAddress()
+        {
+            return UserData.Address;
+        }
+
+        public string GetPhoneNumber()
+        {
+            return UserData.PhoneNumber;
+        }
+
         public void UpdateFirstName(string firstName)
         {
             UserData.FirstName = firstName;
@@ -39,6 +58,11 @@ namespace UserDataWizard.Repository
         public UserDataModel GetUserData()
         {
             return UserData;
+        }
+
+        public void ResetUserDataModel()
+        {
+            UserData = new UserDataModel();
         }
     }
 }

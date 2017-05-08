@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="UserDataWizard.Views.WizardMainView"
+﻿<UserControl x:Class="UserDataWizard.Views.TestView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -13,6 +13,7 @@
 
     <UserControl.Resources>
         <!-- BINDING -->
+
         <DataTemplate DataType="{x:Type viewModel:FirstNameViewModel}">
             <view:FirstNameView />
         </DataTemplate>
@@ -41,7 +42,15 @@
             <Setter Property="VerticalContentAlignment" Value="Center" />
         </Style>
 
-        <!-- STYLE FOR CONTENT WITH HEADER -->
+
+
+
+
+
+
+        <!-- DO ZMIANY!!!!-->
+
+        <!-- HEADERED CONTENT CONTROL STYLE -->
         <Style TargetType="{x:Type HeaderedContentControl}">
             <Setter Property="Template">
                 <Setter.Value>
@@ -49,7 +58,7 @@
                         <StackPanel Margin="2,0">
                             <Grid Margin="1,1,1,12" RenderTransformOrigin="0.5,0.5">
                                 <Rectangle
-                                    Fill="DarkOrange"
+                                    Fill="BurlyWood"
                                     Height="3"
                                     Margin="10,0"
                                     Opacity="0.6"
@@ -61,7 +70,7 @@
                                     ContentSource="Header"
                                     TextBlock.FontSize="22"
                                     TextBlock.FontWeight="DemiBold"
-                                    TextBlock.Foreground="#ff7626"
+                                    TextBlock.Foreground="Brown"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center" 
                                 />
@@ -82,60 +91,16 @@
             </Setter>
         </Style>
 
-        <!-- WIZARD STEP TEMPLATE -->
-        <DataTemplate x:Key="WizardStepTemplate">
-            <Border
-                x:Name="bdOuter"
-                Background="Gray"
-                BorderBrush="DarkGray"
-                BorderThickness="0,0,1,1"
-                CornerRadius="12"
-                Margin="1,1,1,12"
-                Opacity="0.25"
-                SnapsToDevicePixels="True" >
-                <Border
-                    x:Name="bdInner"
-                    Background="Orange"
-                    BorderBrush="#ff7626"
-                    BorderThickness="2,2,1,1"
-                    CornerRadius="12"
-                    Padding="2" >
+        <!-- DO ZMIANY!!!!-->
 
-                    <TextBlock
-                        x:Name="Text"
-                        Margin="4,0,0,0"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        Text="{Binding Path=PageTitle}" 
-                        />
-                </Border>
-            </Border>
 
-            <DataTemplate.Triggers>
-                <DataTrigger Binding="{Binding Path=IsCurrentPage}" Value="True">
-                    <Setter
-                        TargetName="Text"
-                        Property="FontWeight"
-                        Value="Bold"
-                    />
-                    <Setter
-                        TargetName="bdInner"
-                        Property="Background"
-                        Value="#ff7626" 
-                    />
-                    <Setter
-                        TargetName="bdOuter"
-                        Property="Opacity"
-                        Value="1" 
-                    />
-                </DataTrigger>
-            </DataTemplate.Triggers>
-        </DataTemplate>
-        
+
     </UserControl.Resources>
 
 
-    <Grid Margin="1" Background="LightGray">
+
+
+    <Grid Background="#11000000" Margin="1">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200" />
             <ColumnDefinition Width="*" />
@@ -145,17 +110,102 @@
             <RowDefinition Height="30" />
         </Grid.RowDefinitions>
 
-        <!-- WIZARD STEPS -->
-        <HeaderedContentControl Header="Kroki">
-            <ItemsControl
-                ItemsSource="{Binding Path=Steps}" 
-                ItemTemplate="{StaticResource WizardStepTemplate}" 
-            />
-        </HeaderedContentControl>
+        <Grid
+            Grid.Column="0"
+            Grid.Row="0">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <GridViewColumnHeader>
+                <GridViewColumnHeader.Template>
+                    <ControlTemplate>
+                        <Grid 
+                            Margin="1,1,1,12" 
+                            RenderTransformOrigin="0.5,0.5"
+                            Opacity="0.1" >
+                            <Grid.RenderTransform>
+                                <RotateTransform Angle="-3" />
+                            </Grid.RenderTransform>
+                            <Rectangle
+                                Fill="BurlyWood"
+                                Height="3"
+                                Margin="10,0"
+                                Opacity="0.6"
+                                RadiusX="8"
+                                RadiusY="8"
+                                VerticalAlignment="Bottom" 
+                            />
+                            <TextBlock
+                                Text="Kroki"
+                                FontSize="22"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center" 
+                                Foreground="Brown">
+                            </TextBlock>
+                        </Grid>
+                    </ControlTemplate>
+                </GridViewColumnHeader.Template>
+            </GridViewColumnHeader>
+            
+            <Grid Row="1">
+                <Rectangle Fill="Red"></Rectangle>
+                <ListView  
+                    ItemsSource="{Binding Steps}"
+                    SelectedItem="{Binding CurrentStep}"
+                    Focusable="False" >
+                    
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Border
+                                x:Name="bdOuter"
+                                HorizontalAlignment="Stretch"
+                                BorderBrush="Black"
+                                BorderThickness="0,0,1,1"
+                                CornerRadius="12"
+                                Margin="1,1,1,12"
+                                Opacity="0.25"
+                                SnapsToDevicePixels="True"
+                            >
+                                <Border
+                                    x:Name="bdInner"
+                                    Background="Red"
+                                    BorderBrush="DarkRed"
+                                    HorizontalAlignment="Stretch"
+                                    BorderThickness="2,2,1,1"
+                                    CornerRadius="12"
+                                    Padding="2"                  
+                                >
+                                    <TextBlock
+                                        x:Name="Text"
+                                        Margin="4,0,0,0"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Text="{Binding Path=PageTitle}" 
+                                    />
+                                </Border>
+                            </Border>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+
+                </ListView>
+            </Grid>
+
+
+        </Grid>
+
 
         <!-- CURRENT PAGE -->
         <Border
-            Background="WhiteSmoke" 
+            Background="White" 
             Grid.Column="1" 
             Grid.Row="0">
             <HeaderedContentControl 
@@ -170,7 +220,7 @@
             Grid.Column="0"
             Grid.ColumnSpan="2" 
             Grid.Row="1"
-            Background="DarkGray" >
+            Background="LightGray" >
 
             <Grid>
                 <!-- NAVIGATION BUTTONS -->
@@ -205,9 +255,9 @@
                     <Button
                         Grid.Column="3"
                         Grid.Row="0"
-                        Content="Zmień dane"
-                        Command="{Binding ChangeDataCommand}"
-                        />
+                        Content="Przerwij"
+                        Command="{Binding Cancel}"
+                    />
                 </Grid>
             </Grid>
         </Border>

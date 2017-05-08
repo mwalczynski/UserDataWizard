@@ -8,11 +8,14 @@ using System.Windows.Input;
 using GalaSoft.MvvmLight.CommandWpf;
 using UserDataWizard.Annotations;
 using Prism.Commands;
+using UserDataWizard.Service;
 
 namespace UserDataWizard.ViewModels
 {
     public class WizardViewModel : INotifyPropertyChanged
     {
+        private UserDataService UserDataService = new UserDataService();
+
         private readonly int SummaryId;
 
         private ReadOnlyCollection<BaseViewModel> steps;
@@ -21,10 +24,7 @@ namespace UserDataWizard.ViewModels
         public ICommand MovePrevoiusCommand { get; }
         public ICommand MoveNextCommand { get; }
         public ICommand FinishCommand { get; }
-
-        private ICommand cancelCommand;
-
-
+        public ICommand ChangeDataCommand { get; }
 
         public WizardViewModel()
         {
@@ -32,6 +32,7 @@ namespace UserDataWizard.ViewModels
             MovePrevoiusCommand = new RelayCommand(MovePrevoius, CanMovePrevoius);
             MoveNextCommand = new RelayCommand(MoveNext, CanMoveNext);
             FinishCommand = new RelayCommand(Finish, CanFinish);
+            ChangeDataCommand = new RelayCommand(ChangeData, CanChangeData);
 
             SummaryId = Steps.Max(s => s.Id);
         }
@@ -80,6 +81,17 @@ namespace UserDataWizard.ViewModels
             return !IsSummary();
         }
 
+        private void ChangeData()
+        {
+            UserDataService.LoadNewData();
+            CurrentStep = Steps.First(s => s.Id == 1);
+        }
+
+        private bool CanChangeData()
+        {
+            return IsSummary();
+        }
+
         public ReadOnlyCollection<BaseViewModel> Steps
         {
             get
@@ -105,8 +117,8 @@ namespace UserDataWizard.ViewModels
 
         public BaseViewModel CurrentStep
         {
-            get => currentStep;
-            private set
+            get { return currentStep; }
+            set
             {
                 if (value == currentStep)
                     return;

@@ -23,7 +23,11 @@ namespace UserDataWizard.ViewModels
 
         public string FirstName
         {
-            get { return firstName; }
+            get
+            {
+                firstName = UserDataService.GetFirstName();
+                return firstName;
+            }
             set
             {
                 firstName = value;
