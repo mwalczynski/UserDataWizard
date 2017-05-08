@@ -19,17 +19,41 @@ namespace UserDataWizard.ViewModels
             get { return "Podsumowanie"; }
         }
 
-        private UserDataModel userData;
+        private string firstName;
+        private string secondName;
+        private string address;
+        private string phoneNumber;
 
-        public UserDataModel UserData
+        public string FirstName
         {
             get
             {
-                if (userData == null)
-                {
-                    userData = UserDataService.GetUserData();
-                }
-                return userData;
+                firstName = UserDataService.GetFirstName();
+                return firstName;
+            }
+        }
+        public string SecondName
+        {
+            get
+            {
+                secondName = UserDataService.GetSecondName();
+                return secondName;
+            }
+        }
+        public string Address
+        {
+            get
+            {
+                address = UserDataService.GetAddress();
+                return address;
+            }
+        }
+        public string PhoneNumber
+        {
+            get
+            {
+                phoneNumber = UserDataService.GetPhoneNumber();
+                return phoneNumber;
             }
         }
 

@@ -40,7 +40,7 @@
         <TextBox 
             Grid.Column="2" 
             Grid.Row ="0"   
-            Text="{Binding UserData.FirstName}" 
+            Text="{Binding FirstName, Mode=OneWay}" 
         />
 
         <Label 
@@ -52,7 +52,7 @@
         <TextBox 
             Grid.Column="2" 
             Grid.Row ="1"
-            Text="{Binding UserData.SecondName}" 
+            Text="{Binding SecondName, Mode=OneWay}" 
         />
 
         <Label 
@@ -64,7 +64,7 @@
         <TextBox 
             Grid.Column="2" 
             Grid.Row ="2"
-            Text="{Binding UserData.Address}" 
+            Text="{Binding Address, Mode=OneWay}" 
         />
 
         <Label 
@@ -76,7 +76,7 @@
         <TextBox 
             Grid.Column="2" 
             Grid.Row ="3"
-            Text="{Binding UserData.PhoneNumber}" 
+            Text="{Binding PhoneNumber, Mode=OneWay}" 
         />
 
     </Grid>
