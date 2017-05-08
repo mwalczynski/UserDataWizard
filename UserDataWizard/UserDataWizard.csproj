@@ -100,9 +100,6 @@
     <Compile Include="Views\SummaryView.xaml.cs">
       <DependentUpon>SummaryView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\TestView.xaml.cs">
-      <DependentUpon>TestView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\WizardMainView.xaml.cs">
       <DependentUpon>WizardMainView.xaml</DependentUpon>
     </Compile>
@@ -135,10 +132,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SummaryView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\TestView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
